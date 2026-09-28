@@ -9,10 +9,8 @@ ENV_DIR = Path("3000-env")
 venv.create(ENV_DIR, with_pip=True)
 
 if sys.platform == "win32":
-    pip = ENV_DIR / "Scripts" / "pip.exe"
     python = ENV_DIR / "Scripts" / "python.exe"
 else:
-    pip = ENV_DIR / "bin" / "pip"
     python = ENV_DIR / "bin" / "python"
 
 packages = [
@@ -22,10 +20,11 @@ packages = [
     "matplotlib==3.11.2",
     "seaborn==0.13.2",
     "shap==0.52.0",
+    "ipykernel",
 ]
 
-subprocess.check_call([pip, "install", "--upgrade", "pip"])
-subprocess.check_call([pip, "install", *packages])
+subprocess.check_call([python, "-m", "pip", "install", "--upgrade", "pip"])
+subprocess.check_call([python, "-m", "pip", "install", *packages])
 
 subprocess.check_call([
     python, "-c",
